@@ -1,0 +1,98 @@
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background: #F1F1F1;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.form-group input,
+.form-group select {
+    border-radius: 0px;
+}
+
+.error_message_above_field {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #FF0000;
+    text-align: left;
+    padding-left: 0px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+
+.navbar-inverse .navbar-brand {
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.46);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.nav > li {
+    border-left: 1px solid rgb(25, 41, 75);
+}
+
+.nav > li:hover {
+    background: rgb(25, 41, 75);
+}
+
+.thumbnail {
+    background: #ffffff;
+    border: 1px solid #CFCFCF;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+    padding: 6px 6px 2px 6px;
+    transition: all 0.2s ease 0s;
+}
+
+.thumbnail:hover {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #b8b8b8;
+    transition: all 0.2s ease 0s;
+}
+
+.thumbnail .product-img img {
+    width: 100%;
+    height: 200px;
+}
+
+.thumbnail .caption h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+.thumbnail .caption h5 {
+    margin: 2px 0px 5px 0px;
+    color: darkgray;
+}
+
+.thumbnail .caption {
+    padding: 5px 0px 0px 0px;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-size: 20px;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 20px;
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+.top-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #d2d2d2;
+    margin-top: -20px;
+    padding-top: 10px;
+}
+
+.top-bar h2 {
+    font-size: 28px;
+    margin-top: 0px;
+}
+
+.content-area {
+    padding-top: 30px;
+}

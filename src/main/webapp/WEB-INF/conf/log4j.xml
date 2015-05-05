@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="error" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/hms/logs/webrtc/webrtc_demo_error.log"/>
+        <param name="Threshold" value="error"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="trace" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/hms/logs/webrtc/webrtc_demo_trace.log"/>
+        <param name="Threshold" value="debug"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-5p [%t] %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d - %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="error" additivity="false">
+        <priority value="error"/>
+        <appender-ref ref="error"/>
+    </category>
+
+    <category name="trace" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+    </category>
+
+    <category name="console">
+        <priority value="debug"/>
+    </category>
+
+    <category name="hms" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="console"/>
+    </category>
+
+    <category name="org.apache.cxf" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="trace"/>
+    </category>
+
+    <category name="com.mchange" additivity="false">
+        <priority value="error"/>
+        <appender-ref ref="error"/>
+    </category>
+
+
+    <category name="org" additivity="false">
+        <priority value="error" />
+        <appender-ref ref="error" />
+    </category>
+
+    <category name="org.hibernate" additivity="false">
+        <priority value="error" />
+        <appender-ref ref="error" />
+    </category>
+
+    <category name="org.springframework" additivity="false">
+        <priority value="error" />
+    </category>
+
+    <root>
+        <priority value="debug"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="trace"/>
+        <appender-ref ref="console"/>
+    </root>
+
+</log4j:configuration>

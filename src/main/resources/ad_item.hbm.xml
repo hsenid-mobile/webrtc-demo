@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="hms.webrtc.demo.domain">
+
+    <class name="AdItem" table="AD_ITEM">
+        <id name="adId" column="AD_ID" type="java.lang.String"/>
+        <property name="adTopic" type="java.lang.String" not-null="true" column="AD_TOPIC"/>
+        <property name="adCategory" type="java.lang.String" not-null="true" column="AD_CATEGORY"/>
+        <property name="adDescription" type="java.lang.String" not-null="false" column="AD_DESCRIPTION"/>
+        <property name="itemPrice" type="java.lang.String" not-null="false" column="AD_ITEM_PRICE"/>
+        <property name="mobileNumber" type="java.lang.String" not-null="false" column="MOBILE_NUMBER"/>
+        <property name="posterUrl" type="java.lang.String" not-null="false" column="AD_POSTER_URL"/>
+        <property name="date" type="java.util.Date" not-null="false" column="CREATED_DATE"/>
+        <property name="script" type="java.lang.String" not-null="false" column="SCRIPT"/>
+    </class>
+
+</hibernate-mapping>

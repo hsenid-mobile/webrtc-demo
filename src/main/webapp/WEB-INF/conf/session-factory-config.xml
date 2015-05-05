@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="hibernateConfigProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:hibernate.properties"/>
+    </bean>
+
+
+    <bean id="dataSourceGlobal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${webrtc.demo.database.driver.class}" />
+        <property name="jdbcUrl" value="${webrtc.demo.database.path}" />
+        <property name="user" value="${webrtc.demo.database.user.name}" />
+        <property name="password" value="${webrtc.demo.database.password}" />
+
+        <property name="acquireIncrement" value="1" />
+        <property name="minPoolSize" value="2" />
+        <property name="maxPoolSize" value="5" />
+        <property name="maxIdleTime" value="600" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceGlobal"/>
+        <property name="mappingResources">
+            <list>
+                <value>ad_item.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties" ref="hibernateConfigProperties"/>
+    </bean>
+
+    <bean id="hibernateUtil" class="hms.webrtc.demo.util.HibernateUtil">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+
+    <bean id="adItemDao" class="hms.webrtc.demo.dao.impl.AdItemDaoImpl">
+        <property name="hibernateUtil" ref="hibernateUtil"/>
+        <property name="batchSize" value="50"/>
+    </bean>
+
+</beans>
