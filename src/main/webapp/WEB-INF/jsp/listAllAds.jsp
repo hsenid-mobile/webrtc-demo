@@ -41,6 +41,8 @@
                                 <h5>Product Description Here</h5>
                                 <div class="row">
                                     <div class="col-md-6">
+                                         ${adItem.script}
+                                        <div id="phone-icon"></div>
                                     </div>
                                     <div class="col-md-6">
                                         <p class="product-price">${adItem.itemPrice}</p>

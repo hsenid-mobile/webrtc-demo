@@ -14,6 +14,7 @@
 package hms.webrtc.demo.controller;
 
 
+import hms.tap.api.WebRTCApi;
 import hms.webrtc.demo.controller.bean.AdItemForm;
 import hms.webrtc.demo.controller.bean.AdvertisementType;
 import hms.webrtc.demo.domain.AdItem;
@@ -67,6 +68,20 @@ public class HomeController {
     @Value("${code.two}")
     public String codeTwo;
 
+    @Value("${app.id}")
+    public String appId;
+
+    @Value("${app.password}")
+    public String appPassword;
+
+    @Value("${create.component.url}")
+    public String createComponentUrl;
+
+    @Value("${request.script.url}")
+    public String requestScriptUrl;
+
+    private WebRTCApi webRTCApi = new WebRTCApi();
+
     @RequestMapping(value = "/listAds", method = RequestMethod.GET)
     public ModelAndView homePage(ModelMap model) {
         logger.debug("Request Received");
@@ -98,15 +113,24 @@ public class HomeController {
 
         String adId = UUID.randomUUID().toString();
 
-        // TODO Implement WebRTC API to Provision Component / Request Script and replace "adId"  & "Script" parameters.
-
         if (!result.hasErrors()) {
-            boolean isItemCreatedSuccessfully
-                    = adItemService.saveAdItem(adItemForm, adId, "", uploadPosterURL, formatMobileNumber(adItemForm.getMobileNumber()));
-            if (isItemCreatedSuccessfully) {
-                modelAndView.addObject("successMessage", "You have Successfully Created the Ad unit.");
-            } else {
-                modelAndView.addObject("errorMessage", "Error occurred while processing.");
+
+            Map<String, Object> componentResp =  webRTCApi.createComponent(createComponentUrl, appId, appPassword, adId, formatMobileNumber(adItemForm.getMobileNumber()));
+            if (ResponseCode.S1000.name().equals(componentResp.get(ResponseKey.STATUS_CODE))) {
+                Map<String, Object> requestScriptResp =   webRTCApi.requestScript(requestScriptUrl, appId, appPassword, adId);
+
+                if (ResponseCode.S1000.name().equals(requestScriptResp.get(ResponseKey.STATUS_CODE))) {
+                    String requestedScript = (String)requestScriptResp.get(ResponseKey.SCRIPT);
+
+                    boolean isItemCreatedSuccessfully
+                            = adItemService.saveAdItem(adItemForm, adId, requestedScript, uploadPosterURL, formatMobileNumber(adItemForm.getMobileNumber()));
+                    if (isItemCreatedSuccessfully) {
+                        modelAndView.addObject("successMessage", "You have Successfully Created the Ad unit.");
+                    } else {
+                        modelAndView.addObject("errorMessage", "Error occurred while processing.");
+                    }
+                }
+
             }
         }
 
